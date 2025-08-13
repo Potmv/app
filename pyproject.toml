@@ -19,6 +19,7 @@ alembic = "^1.16.4"
 aiobotocore = "^2.24.0"
 libmagic = "^1.0"
 python-multipart = "^0.0.20"
+black = "^25.1.0"
 
 
 [build-system]

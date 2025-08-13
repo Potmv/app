@@ -15,7 +15,7 @@ class Beat(Base):
     musical_key = Column(String(5))
     file_url = Column(Text, nullable=False)
     cover_url = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now())
 
     cart_items = relationship("CartItem", back_populates="beat", cascade="all, delete")
     order_items = relationship("OrderItem", back_populates="beat", cascade="all, delete")

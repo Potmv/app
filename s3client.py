@@ -1,6 +1,9 @@
 from aiobotocore.session import get_session
 from contextlib import asynccontextmanager
 
+from config import settings
+
+
 class S3Client:
     def __init__(self, access_key: str, secret_key: str, endpoint_url: str, bucket_name: str):
         self.config = {
@@ -27,4 +30,11 @@ class S3Client:
         from urllib.parse import quote
 
         encoded_name = quote(object_name, safe="")
-        return f"{self.config['endpoint_url']}/{self.bucket_name}/{encoded_name}"
+        return f"https://a7af36d0-4d00-494e-9aee-99f8825af363.selstorage.ru/{encoded_name}"
+
+s3_client = S3Client(
+        access_key=settings.ACCESS_KEY,
+        secret_key=settings.SECRET_KEY,
+        endpoint_url=settings.ENDPOINT_URL,
+        bucket_name=settings.BUCKET_NAME,
+    )
