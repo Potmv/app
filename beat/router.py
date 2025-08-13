@@ -10,6 +10,7 @@ from sqlalchemy import insert
 from sqlalchemy.exc import SQLAlchemyError
 
 from beat.beat_dao import BeatDAO
+from config import settings
 from database import async_session_maker
 from s3.s3client import S3Client
 from fastapi import APIRouter, UploadFile, File, HTTPException
@@ -17,10 +18,10 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 beats_router = APIRouter(prefix="/beats")
 import logging
 s3_client = S3Client(
-        access_key="8b0346aa3d49456fb0b46f41cb0f0e13",
-        secret_key="dc7a3ef15db942d0b21e4b7a49f431b0",
-        endpoint_url="https://s3.ru-7.storage.selcloud.ru",
-        bucket_name="potmv-app"
+        access_key=settings.ACCESS_KEY,
+        secret_key=settings.SECRET_KEY,
+        endpoint_url=settings.ENDPOINT_URL,
+        bucket_name=settings.BUCKET_NAME,
     )
 
 PriceType = Literal[30, 50, 60]
