@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Beats Catalog</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .beats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .beat-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .beat-card:hover {
+            transform: translateY(-5px);
+        }
+        .beat-cover {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        .beat-info {
+            padding: 20px;
+        }
+        .beat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .beat-title {
+            font-size: 20px;
+            margin: 0;
+            color: #222;
+        }
+        .beat-price {
+            background: #4CAF50;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .beat-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .meta-item {
+            background: #f0f0f0;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .beat-description {
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 14px;
+        }
+        .beat-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        .genre-tag {
+            background: #e0e0e0;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="beats-grid">
+            {% for beat in beats %}
+            <div class="beat-card">
+                <img src="{{ beat.cover_url }}" alt="{{ beat.title }}" class="beat-cover"
+                     onerror="this.src='https://via.placeholder.com/300'">
+                <div class="beat-info">
+                    <div class="beat-header">
+                        <h2 class="beat-title">{{ beat.title }}</h2>
+                        <span class="beat-price">${{ beat.price }}</span>
+                    </div>
+
+                    <div class="beat-meta">
+                        <span class="meta-item">BPM: {{ beat.bpm }}</span>
+                        <span class="meta-item">Key: {{ beat.musical_key }}</span>
+                        <span class="meta-item">ID: {{ beat.beat_id }}</span>
+                    </div>
+
+                    <p class="beat-description">{{ beat.description }}</p>
+
+                    <div class="beat-genres">
+                        {% for genre in beat.genre.split(', ') %}
+                        <span class="genre-tag">{{ genre }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <audio controls>
+                        <source src="{{ beat.file_url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
